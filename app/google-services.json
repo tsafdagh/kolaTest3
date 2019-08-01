@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1007411332232",
+    "firebase_url": "https://kola-test-finding-word.firebaseio.com",
+    "project_id": "kola-test-finding-word",
+    "storage_bucket": "kola-test-finding-word.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1007411332232:android:8c6ccab3a1eb5a20",
+        "android_client_info": {
+          "package_name": "com.tsafack.kolatestphase3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1007411332232-9aii803nbq5i7p4t703vj4o5ivk9peuh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tsafack.kolatestphase3",
+            "certificate_hash": "65e037a453c95b3b12e270c9dc4c6663b6bd5bba"
+          }
+        },
+        {
+          "client_id": "1007411332232-a83r8d1mlu67dv2vhk8btrhbhmv3tjsf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxpYcFFp8DZaandHQNrJx6ULsKmj1Oek8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1007411332232-a83r8d1mlu67dv2vhk8btrhbhmv3tjsf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
