@@ -93,7 +93,6 @@ class MainActivity : AppCompatActivity() {
              findingWordintext(myList[i], i)
          }*/
 
-
         /* val textRec = TextRecognizer.Builder(this).build()
          if (!textRec.isOperational) {
              // Note: The first time that an app using a Vision API is installed on a
@@ -134,7 +133,6 @@ class MainActivity : AppCompatActivity() {
             CAMERA_REQUEST_CODE -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     image_grille.setImageBitmap(data.extras!!.get("data") as Bitmap)
-
                     setUpTextRecognition(data)
                 }
             }
@@ -145,12 +143,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createWordList() {
-        wordLit.add(WordItem(SingleWord("hellow", Coordone(2, 1)), this))
-        wordLit.add(WordItem(SingleWord("How", Coordone(3, 9)), this))
-        wordLit.add(WordItem(SingleWord("School", Coordone(8, 7)), this))
-        wordLit.add(WordItem(SingleWord("hellow", Coordone(10, 11)), this))
-        wordLit.add(WordItem(SingleWord("Casa", Coordone(5, 1)), this))
-        wordLit.add(WordItem(SingleWord("Breakfast", Coordone(7, 6)), this))
+        wordLit.add(WordItem(SingleWord("hellow", "","","", Coordone(2, 1)), this))
+        wordLit.add(WordItem(SingleWord("How", "","","",  Coordone(3, 9)), this))
+        wordLit.add(WordItem(SingleWord("School", "","","",  Coordone(8, 7)), this))
+        wordLit.add(WordItem(SingleWord("hellow", "","","", Coordone(10, 11)), this))
+        wordLit.add(WordItem(SingleWord("Casa", "","","", Coordone(5, 1)), this))
+        wordLit.add(WordItem(SingleWord("Breakfast", "","","",  Coordone(7, 6)), this))
         updateRecycleViewCategories(wordLit)
     }
 
@@ -181,10 +179,9 @@ class MainActivity : AppCompatActivity() {
             updateItems()
     }
 
-
     private fun setUpTextRecognition(data: Intent) {
-        val image = FirebaseVisionImage.fromBitmap(data.extras!!.get("data") as Bitmap)
 
+        val image = FirebaseVisionImage.fromBitmap(data.extras!!.get("data") as Bitmap)
         val detector = FirebaseVision.getInstance()
             .onDeviceTextRecognizer
 
@@ -220,7 +217,7 @@ class MainActivity : AppCompatActivity() {
         val myList = convertStringToArray(wordList)
         Log.i("MainActivity", "Taille de la liste: " + myList.size)
         myList.forEach {
-            Log.i("MainActivity", "element courent : " + it)
+            Log.i("MainActivity", "element courent : $it")
         }
 
         // on parcout la matrice ligne par ligne et on recherche les mots qui existent
@@ -256,7 +253,6 @@ class MainActivity : AppCompatActivity() {
         }*/
     }
 
-
     private fun findingWordintext(noSpacingText: String, numeroLigne: Int) {
         val result = decoupageverticale(noSpacingText, numeroLigne)
         result.forEach {
@@ -285,18 +281,18 @@ class MainActivity : AppCompatActivity() {
 
             if (findisWordExiste(curentWord)) {
                 val coordonne = Coordone(numeroLigne, 0)
-                val singleWord = SingleWord(curentWord as String, coordonne)
+                val singleWord = SingleWord(curentWord as String,"","","", coordonne)
                 correctWordList.add(singleWord)
             }
 
             //var nexSize = text.length -i
             val minJ = i + 1
-            for (j in minJ..text.length - 1) {
+            for (j in minJ until text.length) {
                 curentWord = text.subSequence(minJ, j)
-                if (findisWordExiste(curentWord)) {
 
+                if (findisWordExiste(curentWord)) {
                     val coordonne = Coordone(numeroLigne, minJ)
-                    val singleWord = SingleWord(curentWord as String, coordonne)
+                    val singleWord = SingleWord(curentWord as String, "", "","",coordonne)
                     correctWordList.add(singleWord)
                 }
             }

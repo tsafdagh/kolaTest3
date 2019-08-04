@@ -4,7 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
         android:layout_margin="4dp"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardBackgroundColor="@android:color/white"
@@ -27,6 +27,19 @@
                 android:textSize="16sp"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat"
                 tools:text="Texte retrouver"/>
+        <TextView
+                android:id="@+id/id_text_definition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textStyle="italic"
+                android:textSize="16sp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat"
+                tools:text="definition:"
+                android:textColor="@color/colorPrimary"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="25dp"
+                android:layout_alignParentStart="true"/>
         <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
