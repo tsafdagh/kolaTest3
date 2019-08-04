@@ -23,6 +23,7 @@ class WordItem(
     val context: Context
 ) : Item() {
 
+    val TAG = "wordItem"
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.apply {
             id_text_view_word.text = wordEntitie.wordText
@@ -31,55 +32,69 @@ class WordItem(
             id_tv_abscisse.text = absc
             id_tv_ordonne.text = ordone
 
-            id_text_definition.text = "definition: "
             // on recupère la définition du mot
-            /*laodDefinition(createUrl(wordEntitie.wordText), onComplete = {
+            laodDefinition(createUrl(wordEntitie.wordText), onComplete = {
+                id_text_definition.text = "definition: $it"
                 Log.i("WordItem", it)
-            })*/
+            })
         }
     }
 
     override fun getLayout() = R.layout.row_item_transaction
 
 
+
     private fun createUrl(word: String = "Ace"): String {
         val language = "en-gb"
         val word = word
-        val fields = "pronunciations"
+        val fields = "definitions"
         val strictMatch = "false"
         val word_id = word.toLowerCase()
         return "https://od-api.oxforddictionaries.com:443/api/v2/entries/$language/$word_id?fields=$fields&strictMatch=$strictMatch"
     }
-
-
     private fun laodDefinition(url: String, onComplete: (text: String?) -> Unit) {
 
         val app_id = "94d845a3"
         val app_key = "f4c42104a90879079b5da1ba37e3d6cf"
 
         //creating volley string request
-        val stringRequest = object : StringRequest(Request.Method.POST, url,
+        val stringRequest = object : StringRequest(Method.GET, url,
             Response.Listener<String> { response ->
                 try {
+                    //Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show()
+                    Log.d(TAG, "RESULTAT: $response")
                     val obj = JSONObject(response)
-                    Toast.makeText(context, obj.getString("results"), Toast.LENGTH_LONG).show()
+                    Log.d(TAG, "All jsonOb: $obj")
+                    val jsResulat = obj.getJSONArray("results")
+                    Log.d(TAG, "result JSON1: $jsResulat")
+                    val lexicalEntries = jsResulat.getJSONObject(0).getJSONArray("lexicalEntries")
+                    Log.d(TAG, "lexicalEntries: $lexicalEntries")
+                    val entries = lexicalEntries.getJSONObject(0).getJSONArray("entries")
+                    Log.d(TAG, "lexicalEntries: $entries")
+                    val senses = entries.getJSONObject(0).getJSONArray("senses")
+                    Log.d(TAG, "lexicalEntries: $senses")
+                    val premiereDefinition = senses.getJSONObject(0).getJSONArray("definitions").getString(0)
+                    Log.d(TAG, "definition: $premiereDefinition")
+
+                    onComplete(premiereDefinition)
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             },
-            object : Response.ErrorListener {
-                override fun onErrorResponse(volleyError: VolleyError) {
-                    Toast.makeText(context, volleyError.message, Toast.LENGTH_LONG).show()
-                }
+            Response.ErrorListener { volleyError ->
+                Toast.makeText(
+                    context,
+                    volleyError.message,
+                    Toast.LENGTH_LONG
+                ).show()
             }) {
             @Throws(AuthFailureError::class)
-            override fun getParams(): Map<String, String> {
-                val params = HashMap<String, String>()
-                params.put("Accept", "application/json")
-                params.put("app_id", app_id)
-                params.put("app_key", app_key)
-
-                return params
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Accept"] = "application/json"
+                headers["app_id"] = app_id
+                headers["app_key"] = app_key
+                return headers
             }
         }
 
