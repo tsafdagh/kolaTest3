@@ -137,11 +137,12 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             else -> {
-                Toast.makeText(this, "Unrecognized request code", Toast.LENGTH_SHORT)
+                Toast.makeText(this, "Unrecognized request code", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
+/*
     private fun createWordList() {
         wordLit.add(WordItem(SingleWord("hellow", "","","", Coordone(2, 1)), this))
         wordLit.add(WordItem(SingleWord("How", "","","",  Coordone(3, 9)), this))
@@ -150,7 +151,7 @@ class MainActivity : AppCompatActivity() {
         wordLit.add(WordItem(SingleWord("Casa", "","","", Coordone(5, 1)), this))
         wordLit.add(WordItem(SingleWord("Breakfast", "","","",  Coordone(7, 6)), this))
         updateRecycleViewCategories(wordLit)
-    }
+    }*/
 
     private fun updateRecycleViewCategories(listCategorieTransaction: ArrayList<Item>) {
         fun init() {
@@ -198,6 +199,16 @@ class MainActivity : AppCompatActivity() {
                 toast("error: " + it.message.toString())
 
             }
+    }
+
+
+    private fun colorationDesmots(firebaseVisionText: FirebaseVisionText?){
+        val blocks = firebaseVisionText!!.textBlocks
+        if(blocks.size == 0){
+            return;
+        }
+
+
     }
 
     private fun processingRecognition(firebaseVisionText: FirebaseVisionText?) {
